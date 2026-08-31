@@ -58,8 +58,16 @@ img{display:block;width:100%}
   content:"";position:absolute;left:0;right:100%;bottom:-6px;height:1px;background:var(--gold);transition:.25s
 }
 .nav-links>a:not(.pill):hover:after{right:0}
-.menu-btn{display:none;background:none;border:0;padding:8px}
-.menu-btn span{display:block;width:24px;height:2px;background:#111;margin:5px 0}
+.menu-btn{
+  display:none;background:none;border:0;padding:0;
+  width:44px;height:44px;flex-direction:column;
+  align-items:center;justify-content:center;
+  -webkit-tap-highlight-color:transparent;
+}
+.menu-btn span{display:block;width:22px;height:2px;background:#111;margin:4px 0;transition:transform .25s ease,opacity .2s ease}
+.menu-btn[aria-expanded="true"] span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.menu-btn[aria-expanded="true"] span:nth-child(2){opacity:0}
+.menu-btn[aria-expanded="true"] span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
 .pill{
   display:inline-flex;align-items:center;justify-content:center;
   padding:15px 22px;border-radius:999px;
@@ -247,9 +255,19 @@ footer{background:#080808;color:#aaa39a;padding:55px 0 92px}
 .reveal.in{opacity:1;transform:none}
 
 @media(max-width:980px){
-  .nav-links{position:fixed;inset:78px 0 auto 0;background:#f4f1eb;padding:30px 4%;display:none;flex-direction:column;align-items:flex-start;border-bottom:1px solid var(--line)}
+  .nav-links{
+    position:fixed;top:78px;left:0;right:0;bottom:0;
+    background:var(--bg);
+    padding:6px 5% 40px;
+    display:none;flex-direction:column;align-items:stretch;
+    overflow-y:auto;-webkit-overflow-scrolling:touch;
+    box-shadow:0 20px 40px rgba(0,0,0,.18);
+    z-index:95;
+  }
   .nav-links.open{display:flex}
-  .menu-btn{display:block}
+  .nav-links a{padding:17px 2px;font-size:1.05rem;border-bottom:1px solid var(--line)}
+  .nav-links a.pill{border-bottom:0;margin-top:20px;align-self:stretch}
+  .menu-btn{display:flex}
   .hero-grid,.craft-grid,.why-grid,.estimate-grid{grid-template-columns:1fr}
   .hero-grid{padding-top:55px}
   .hero-visual{max-width:680px}
